@@ -1,0 +1,6 @@
+{
+  "name": "Construcción y Renta de Maquinaria",
+  "description": "Sistema de gestión, catálogo, mantenimiento y logística para renta de maquinaria de construcción.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
