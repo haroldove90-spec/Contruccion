@@ -6,10 +6,23 @@ import { DollarSign, Percent, ShieldCheck, Users, Sliders, AlertTriangle } from 
 interface Props {
   equipments: Equipment[];
   contracts: Contract[];
+  activeTab?: 'dashboard' | 'config';
+  onSelectTab?: (tab: 'dashboard' | 'config') => void;
 }
 
-export const AdminView: React.FC<Props> = ({ equipments, contracts }) => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'config'>('dashboard');
+export const AdminView: React.FC<Props> = ({
+  equipments,
+  contracts,
+  activeTab: externalTab,
+  onSelectTab
+}) => {
+  const [internalTab, setInternalTab] = useState<'dashboard' | 'config'>('dashboard');
+  const activeTab = externalTab !== undefined ? externalTab : internalTab;
+
+  const handleTabChange = (tab: 'dashboard' | 'config') => {
+    setInternalTab(tab);
+    if (onSelectTab) onSelectTab(tab);
+  };
 
   // Calculated Metrics
   const totalEquipments = equipments.length;
@@ -29,7 +42,7 @@ export const AdminView: React.FC<Props> = ({ equipments, contracts }) => {
       {/* Sub-header Navigation Tabs */}
       <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider overflow-x-auto">
         <button
-          onClick={() => setActiveTab('dashboard')}
+          onClick={() => handleTabChange('dashboard')}
           className={`px-6 py-4 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'dashboard' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}
@@ -38,7 +51,7 @@ export const AdminView: React.FC<Props> = ({ equipments, contracts }) => {
           Dashboard Ejecutivo & Analítica
         </button>
         <button
-          onClick={() => setActiveTab('config')}
+          onClick={() => handleTabChange('config')}
           className={`px-6 py-4 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'config' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}

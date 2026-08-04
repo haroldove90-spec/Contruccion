@@ -7,15 +7,25 @@ interface Props {
   workOrders: WorkOrder[];
   inventory: InventoryItem[];
   onToggleLockEquipment: (equipmentId: string) => void;
+  activeTab?: 'mantenimiento' | 'inventario';
+  onSelectTab?: (tab: 'mantenimiento' | 'inventario') => void;
 }
 
 export const TallerView: React.FC<Props> = ({
   equipments,
   workOrders,
   inventory,
-  onToggleLockEquipment
+  onToggleLockEquipment,
+  activeTab: externalTab,
+  onSelectTab
 }) => {
-  const [activeTab, setActiveTab] = useState<'mantenimiento' | 'inventario'>('mantenimiento');
+  const [internalTab, setInternalTab] = useState<'mantenimiento' | 'inventario'>('mantenimiento');
+  const activeTab = externalTab !== undefined ? externalTab : internalTab;
+
+  const handleTabChange = (tab: 'mantenimiento' | 'inventario') => {
+    setInternalTab(tab);
+    if (onSelectTab) onSelectTab(tab);
+  };
 
   // Filter equipment with upcoming or overdue service
   const serviceAlerts = equipments.filter(
@@ -36,7 +46,7 @@ export const TallerView: React.FC<Props> = ({
       {/* Navigation Tabs */}
       <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider overflow-x-auto">
         <button
-          onClick={() => setActiveTab('mantenimiento')}
+          onClick={() => handleTabChange('mantenimiento')}
           className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'mantenimiento' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}
@@ -45,7 +55,7 @@ export const TallerView: React.FC<Props> = ({
           Mantenimiento (OTs & Horómetro)
         </button>
         <button
-          onClick={() => setActiveTab('inventario')}
+          onClick={() => handleTabChange('inventario')}
           className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'inventario' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}

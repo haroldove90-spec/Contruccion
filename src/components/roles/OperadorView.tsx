@@ -8,6 +8,8 @@ interface Props {
   incidents: FieldIncident[];
   onAddInspection: (inspection: Omit<FieldInspection, 'id' | 'timestamp'>) => void;
   onAddIncident: (incident: Omit<FieldIncident, 'id' | 'timestamp' | 'status'>) => void;
+  activeTab?: 'checkin' | 'incidencias';
+  onSelectTab?: (tab: 'checkin' | 'incidencias') => void;
 }
 
 export const OperadorView: React.FC<Props> = ({
@@ -15,9 +17,17 @@ export const OperadorView: React.FC<Props> = ({
   inspections,
   incidents,
   onAddInspection,
-  onAddIncident
+  onAddIncident,
+  activeTab: externalTab,
+  onSelectTab
 }) => {
-  const [activeTab, setActiveTab] = useState<'checkin' | 'incidencias'>('checkin');
+  const [internalTab, setInternalTab] = useState<'checkin' | 'incidencias'>('checkin');
+  const activeTab = externalTab !== undefined ? externalTab : internalTab;
+
+  const handleTabChange = (tab: 'checkin' | 'incidencias') => {
+    setInternalTab(tab);
+    if (onSelectTab) onSelectTab(tab);
+  };
 
   // Inspection Form State
   const [selectedEqId, setSelectedEqId] = useState(equipments[0]?.id || '');
@@ -90,7 +100,7 @@ export const OperadorView: React.FC<Props> = ({
       {/* Navigation Tabs */}
       <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider">
         <button
-          onClick={() => setActiveTab('checkin')}
+          onClick={() => handleTabChange('checkin')}
           className={`flex-1 py-3.5 border-r border-[#E1E4E8] flex items-center justify-center gap-2 transition-colors cursor-pointer ${
             activeTab === 'checkin' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}
@@ -99,7 +109,7 @@ export const OperadorView: React.FC<Props> = ({
           Check-in / Check-out
         </button>
         <button
-          onClick={() => setActiveTab('incidencias')}
+          onClick={() => handleTabChange('incidencias')}
           className={`flex-1 py-3.5 flex items-center justify-center gap-2 transition-colors cursor-pointer ${
             activeTab === 'incidencias' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}

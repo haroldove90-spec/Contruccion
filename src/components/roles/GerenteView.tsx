@@ -6,10 +6,23 @@ interface Props {
   equipments: Equipment[];
   contracts: Contract[];
   onUpdateEquipmentStatus?: (id: string, newStatus: Equipment['status']) => void;
+  activeTab?: 'catalogo' | 'contratos' | 'logistica' | 'cobranza';
+  onSelectTab?: (tab: 'catalogo' | 'contratos' | 'logistica' | 'cobranza') => void;
 }
 
-export const GerenteView: React.FC<Props> = ({ equipments, contracts }) => {
-  const [activeTab, setActiveTab] = useState<'catalogo' | 'contratos' | 'logistica' | 'cobranza'>('catalogo');
+export const GerenteView: React.FC<Props> = ({
+  equipments,
+  contracts,
+  activeTab: externalTab,
+  onSelectTab
+}) => {
+  const [internalTab, setInternalTab] = useState<'catalogo' | 'contratos' | 'logistica' | 'cobranza'>('catalogo');
+  const activeTab = externalTab !== undefined ? externalTab : internalTab;
+
+  const handleTabChange = (tab: 'catalogo' | 'contratos' | 'logistica' | 'cobranza') => {
+    setInternalTab(tab);
+    if (onSelectTab) onSelectTab(tab);
+  };
   const [selectedEquipment, setSelectedEquipment] = useState<Equipment | null>(equipments[0]);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -49,7 +62,7 @@ export const GerenteView: React.FC<Props> = ({ equipments, contracts }) => {
       {/* Navigation Tabs */}
       <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider overflow-x-auto">
         <button
-          onClick={() => setActiveTab('catalogo')}
+          onClick={() => handleTabChange('catalogo')}
           className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'catalogo' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}
@@ -58,7 +71,7 @@ export const GerenteView: React.FC<Props> = ({ equipments, contracts }) => {
           Catálogo & Semáforo de Maquinaria
         </button>
         <button
-          onClick={() => setActiveTab('contratos')}
+          onClick={() => handleTabChange('contratos')}
           className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'contratos' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}
@@ -67,7 +80,7 @@ export const GerenteView: React.FC<Props> = ({ equipments, contracts }) => {
           Cotizaciones & Contratos
         </button>
         <button
-          onClick={() => setActiveTab('logistica')}
+          onClick={() => handleTabChange('logistica')}
           className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'logistica' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}
@@ -76,7 +89,7 @@ export const GerenteView: React.FC<Props> = ({ equipments, contracts }) => {
           Control de Logística & Entregas
         </button>
         <button
-          onClick={() => setActiveTab('cobranza')}
+          onClick={() => handleTabChange('cobranza')}
           className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'cobranza' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
           }`}
