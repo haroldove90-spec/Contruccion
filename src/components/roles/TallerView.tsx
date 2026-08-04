@@ -43,27 +43,7 @@ export const TallerView: React.FC<Props> = ({
         <div>DISPONIBILIDAD OPERATIVA Y REFACCIONES</div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider overflow-x-auto">
-        <button
-          onClick={() => handleTabChange('mantenimiento')}
-          className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'mantenimiento' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <Wrench className="w-4 h-4" />
-          Mantenimiento (OTs & Horómetro)
-        </button>
-        <button
-          onClick={() => handleTabChange('inventario')}
-          className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'inventario' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <PackageCheck className="w-4 h-4" />
-          Inventario de Refacciones & Consumibles
-        </button>
-      </div>
+
 
       {activeTab === 'mantenimiento' ? (
         <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-[#E1E4E8]">

@@ -97,27 +97,7 @@ export const OperadorView: React.FC<Props> = ({
         <div>LEVENTAMIENTO DE DATOS EN OBRA</div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider">
-        <button
-          onClick={() => handleTabChange('checkin')}
-          className={`flex-1 py-3.5 border-r border-[#E1E4E8] flex items-center justify-center gap-2 transition-colors cursor-pointer ${
-            activeTab === 'checkin' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <CheckSquare className="w-4 h-4" />
-          Check-in / Check-out
-        </button>
-        <button
-          onClick={() => handleTabChange('incidencias')}
-          className={`flex-1 py-3.5 flex items-center justify-center gap-2 transition-colors cursor-pointer ${
-            activeTab === 'incidencias' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <AlertOctagon className="w-4 h-4 text-red-500" />
-          Reporte Incidencias
-        </button>
-      </div>
+
 
       {showSuccessToast && (
         <div className="p-3 bg-emerald-600 text-white text-xs font-mono font-bold text-center uppercase">

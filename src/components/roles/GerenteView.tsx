@@ -59,45 +59,7 @@ export const GerenteView: React.FC<Props> = ({
         <div>MÓDULOS DE GESTIÓN COMERCIAL & LOGÍSTICA</div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider overflow-x-auto">
-        <button
-          onClick={() => handleTabChange('catalogo')}
-          className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'catalogo' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <Truck className="w-4 h-4" />
-          Catálogo & Semáforo de Maquinaria
-        </button>
-        <button
-          onClick={() => handleTabChange('contratos')}
-          className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'contratos' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <FileText className="w-4 h-4" />
-          Cotizaciones & Contratos
-        </button>
-        <button
-          onClick={() => handleTabChange('logistica')}
-          className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'logistica' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <MapPin className="w-4 h-4" />
-          Control de Logística & Entregas
-        </button>
-        <button
-          onClick={() => handleTabChange('cobranza')}
-          className={`px-6 py-3.5 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'cobranza' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <DollarSign className="w-4 h-4" />
-          Facturación & Cobranza
-        </button>
-      </div>
+
 
       {/* Tab 1: Catálogo & Semáforo */}
       {activeTab === 'catalogo' && (

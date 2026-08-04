@@ -39,27 +39,7 @@ export const AdminView: React.FC<Props> = ({
 
   return (
     <div className="w-full flex flex-col">
-      {/* Sub-header Navigation Tabs */}
-      <div className="w-full bg-white border-b border-[#E1E4E8] flex text-xs font-bold uppercase tracking-wider overflow-x-auto">
-        <button
-          onClick={() => handleTabChange('dashboard')}
-          className={`px-6 py-4 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'dashboard' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <Percent className="w-4 h-4" />
-          Dashboard Ejecutivo & Analítica
-        </button>
-        <button
-          onClick={() => handleTabChange('config')}
-          className={`px-6 py-4 border-r border-[#E1E4E8] flex items-center gap-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'config' ? 'bg-[#1A1C1E] text-white' : 'hover:bg-[#F8F9FA]'
-          }`}
-        >
-          <Sliders className="w-4 h-4" />
-          Configuración y Seguridad (22 Colaboradores)
-        </button>
-      </div>
+
 
       {activeTab === 'dashboard' ? (
         <div className="w-full flex flex-col">
